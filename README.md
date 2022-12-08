@@ -44,14 +44,14 @@ Now The server is open
 
 
 ### clinic apis
-- clinic/add-banner // add banner ||  "Open The Link and add data manualy"
-- clinic/add-speciality // add medical speciality || "Open The Link and add data manualy"
-- clinic/add-favorite-doctor // add favorite davorite doctor || "Open The Link and add data manualy" 
-- clinic/add-review // add review || "Open The Link and add data manualy"
-- clinic/add-hospital // add hospital || "Open The Link and add data manualy"
-- clinic/add-doctor // add doctor || "Open The Link and add data manualy"
-- clinic/list-banners // get all bannars 
-- clinic/list-specialities // get all specialities
-- clinic/list-favorite-doctors // get all favorite doctors
-- clinic/list-hospitals // get all hospitals
-- clinic/list-doctors // git all doctors
+- url : clinic/add-banner || add banner ||  "Open The Link and add data manualy"
+- clinic/add-speciality || add medical speciality || "Open The Link and add data manualy"
+- clinic/add-favorite-doctor || add favorite davorite doctor || "Open The Link and add data manualy" 
+- clinic/add-review || add review || "Open The Link and add data manualy"
+- clinic/add-hospital || add hospital || "Open The Link and add data manualy"
+- clinic/add-doctor || add doctor || "Open The Link and add data manualy", for mobile adding data testing send Post Request with {"doctor": "", "patient": ""} note that doctor is the "doctor id" and patient is the patient
+- clinic/list-banners || get all bannars 
+- clinic/list-specialities || get all specialities
+- clinic/list-favorite-doctors || get all favorite doctors
+- clinic/list-hospitals || get all hospitals
+- clinic/list-doctors || git all doctors
