@@ -17,11 +17,11 @@
 > virtualenv venv
 5. after create the virtual enviroment run this command to activate it
 > venv\Scripts\activate
-6. migrate the database
-> py manage.py migrate
-7. the run this command
+6. the run this command
 > pip install -r requirements.txt
-8.then run this command 
+7. migrate the database
+> py manage.py migrate
+8. then run this command 
 > py manage.py run server
 
 ### Importent Step
