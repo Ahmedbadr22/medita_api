@@ -36,24 +36,25 @@ Now The server is open
 Base url = "127.0.0.1"
 
 ### Authentication apis
-authentication/user-register [name='normal_user_registration']
-authentication/admin-register [name='superuser_registration']
-authentication/doctor-register [name='superuser_registration']
-authentication/login [name='obtain_token']
-authentication/token/refresh [name='token_refresh']
-authentication/token/varify [name='token_varify']
-authentication/token/block [name='token_block']
+- authentication/user-register Post Data => {"email" : "", "password": ""}
+- authentication/admin-register {"email" : "", "password": ""}
+- authentication/doctor-register [name='superuser_registration']
+- authentication/login [name='obtain_token']
+- authentication/token/refresh [name='token_refresh']
+- authentication/token/varify [name='token_varify']
+- authentication/token/block [name='token_block']
+
 
 ### clinic apis
-clinic/add-banner
-clinic/add-speciality
-clinic/add-favorite-doctor
-clinic/add-review
-clinic/add-hospital
-clinic/add-doctor
-clinic/list-banners
-clinic/list-specialities
-clinic/list-favorite-doctors
-clinic/list-reviews
-clinic/list-hospitals
-clinic/list-doctors
+- clinic/add-banner // add banner  
+- clinic/add-speciality // add medical speciality {'name' : ""}
+- clinic/add-favorite-doctor // add favorite davorite doctor need {doctor, patient}
+- clinic/add-review // add review
+- clinic/add-hospital // add hospital
+- clinic/add-doctor // add doctor
+- clinic/list-banners // list bannars
+- clinic/list-specialities // list specialities
+- clinic/list-favorite-doctors // list fa
+- clinic/list-reviews
+- clinic/list-hospitals
+- clinic/list-doctors
