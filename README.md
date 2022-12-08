@@ -13,15 +13,17 @@
 2. install virtual env python lib in your python version
 > pip install virtualenv
 3. clone the repository
-4. open the terminal and write this command
+4. move to the root dir
+> cd medita_api
+5. open the terminal and write this command
 > virtualenv venv
-5. after create the virtual enviroment run this command to activate it
+6. after create the virtual enviroment run this command to activate it
 > venv\Scripts\activate
-6. the run this command
+7. the run this command
 > pip install -r requirements.txt
-7. migrate the database
+8. migrate the database
 > py manage.py migrate
-8. then run this command 
+9. then run this command 
 > py manage.py run server
 
 ### Importent Step
