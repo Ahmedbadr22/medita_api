@@ -9,7 +9,7 @@
 
 
 ## Enviroment Configuration
-1. python version 3.9.13
+1. download python version 3.9.13
 2. install virtual env python lib in your python version
 > pip install virtualenv
 3. clone the repository
@@ -17,9 +17,11 @@
 > virtualenv venv
 5. after create the virtual enviroment run this command to activate it
 > venv\Scripts\activate
-6. the run this command
+6. migrate the database
+> py manage.py migrate
+7. the run this command
 > pip install -r requirements.txt
-7.then run this command 
+8.then run this command 
 > py manage.py run server
 
 ### Importent Step
