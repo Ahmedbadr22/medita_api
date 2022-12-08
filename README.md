@@ -17,4 +17,6 @@
 7.then run this command 
 > py manage.py run server
 
+### Importent Step
+Use Ngrok to deploy the api in the web to access it in the mobile app (Localhost didn't work with the local app development)
 Now The server is open
