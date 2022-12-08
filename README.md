@@ -40,7 +40,7 @@ Now The server is open
 
 ### Authentication apis
 - authentication/user-register || Post Data => {"email" : "", "password": "", "first_name", "last_name"}
-- authentication/login [name='obtain_token'] || Post Data => {"email" : "", "password": ""}
+- authentication/login || Post Data => {"email" : "", "password": ""}
 
 
 ### clinic apis
