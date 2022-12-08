@@ -34,7 +34,7 @@ Now The server is open
 
 
 
-> Base url = "127.0.0.1:8000"
+> Base url = "127.0.0.1:8000" this is the local ip of your computer
 
 ## Endpoints
 
