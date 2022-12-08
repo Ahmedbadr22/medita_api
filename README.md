@@ -32,29 +32,26 @@
 Use Ngrok to deploy the api in the web to access it in the mobile app (Localhost didn't work with the local app development)
 Now The server is open
 
+
+
+> Base url = "127.0.0.1:8000"
+
 ## Endpoints
-Base url = "127.0.0.1"
 
 ### Authentication apis
-- authentication/user-register Post Data => {"email" : "", "password": ""}
-- authentication/admin-register {"email" : "", "password": ""}
-- authentication/doctor-register [name='superuser_registration']
-- authentication/login [name='obtain_token']
-- authentication/token/refresh [name='token_refresh']
-- authentication/token/varify [name='token_varify']
-- authentication/token/block [name='token_block']
+- authentication/user-register || Post Data => {"email" : "", "password": "", "first_name", "last_name"}
+- authentication/login [name='obtain_token'] || Post Data => {"email" : "", "password": ""}
 
 
 ### clinic apis
-- clinic/add-banner // add banner  
-- clinic/add-speciality // add medical speciality {'name' : ""}
-- clinic/add-favorite-doctor // add favorite davorite doctor need {doctor, patient}
-- clinic/add-review // add review
-- clinic/add-hospital // add hospital
-- clinic/add-doctor // add doctor
-- clinic/list-banners // list bannars
-- clinic/list-specialities // list specialities
-- clinic/list-favorite-doctors // list fa
-- clinic/list-reviews
-- clinic/list-hospitals
-- clinic/list-doctors
+- clinic/add-banner // add banner ||  "Open The Link and add data manualy"
+- clinic/add-speciality // add medical speciality || "Open The Link and add data manualy"
+- clinic/add-favorite-doctor // add favorite davorite doctor || "Open The Link and add data manualy" 
+- clinic/add-review // add review || "Open The Link and add data manualy"
+- clinic/add-hospital // add hospital || "Open The Link and add data manualy"
+- clinic/add-doctor // add doctor || "Open The Link and add data manualy"
+- clinic/list-banners // get all bannars 
+- clinic/list-specialities // get all specialities
+- clinic/list-favorite-doctors // get all favorite doctors
+- clinic/list-hospitals // get all hospitals
+- clinic/list-doctors // git all doctors
