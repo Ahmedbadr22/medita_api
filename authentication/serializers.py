@@ -56,7 +56,7 @@ class DoctorUserCreationSerializer(ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_doctor_user(**validated_data)
         user.save()
-        doctor = Doctor.objects.create(user_id=user)
+        doctor = Doctor.objects.create(user=user)
         doctor.save()
         return user
 
