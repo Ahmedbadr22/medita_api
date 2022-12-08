@@ -3,7 +3,12 @@
 ## How to run the api ?
 ### Install Requirments
 
+## Database configuration 
+1. Install MySQL Server & Workbench
+2. create database called 'medita_db'
 
+
+## Enviroment Configuration
 1. python version 3.9.13
 2. install virtual env python lib in your python version
 > pip install virtualenv
