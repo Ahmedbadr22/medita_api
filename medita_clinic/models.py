@@ -11,15 +11,17 @@ from django.db.models import (
     DateField,
     CASCADE,
     DO_NOTHING,
+    BooleanField,
+    FileField,
+    FloatField
 )
 
 from authentication.models import User
 
 
 class Speciality(Model):
-    name = CharField(max_length=150)
-
-    # image = ImageField(upload_to='medita_clinic/speciality/')
+    name = CharField(max_length=150, unique=True)
+    icon = FileField(upload_to='medita_clinic/specialties')
 
     def __str__(self):
         return self.name
@@ -45,6 +47,8 @@ class Hospital(Model):
     name = CharField(max_length=150)
     image = ImageField(upload_to='medita_clinic/hospital/')
     location = CharField(max_length=600)
+    latitude = FloatField(default=0.0)
+    longitude = FloatField(default=0.0)
     rates = ManyToManyField(Rate)
     specialities = ManyToManyField(Speciality)
 
@@ -59,6 +63,7 @@ class Doctor(Model):
     speciality = ForeignKey(Speciality, on_delete=DO_NOTHING)
     work_on_hospital = ForeignKey(Hospital, on_delete=DO_NOTHING)
     rates = ManyToManyField(Rate)
+    reviews = ManyToManyField(Review, null=True, blank=True)
 
     def __str__(self):
         return self.user.email
@@ -73,11 +78,14 @@ class Appointment(Model):
     doctor = ForeignKey(Doctor, on_delete=CASCADE)
     patient = ForeignKey(User, on_delete=CASCADE)
     booking_request_date = DateTimeField(auto_now_add=True)
-    appointment_date = DateField()
-    appointment_time = TimeField()
+    date = DateField()
+    time = TimeField()
+    is_canceled = BooleanField(default=False)
     problem_detail = TextField(max_length=1500)
-    appointment_status = CharField(max_length=20)
-    appointment_summary = TextField(1000)
+    appointment_report = TextField()
+
+    def __str__(self):
+        return f"{self.patient.fullname} has appointment with Doctor: {self.doctor.user.fullname} at {self.date}"
 
 
 class Banner(Model):

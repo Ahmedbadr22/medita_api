@@ -14,8 +14,7 @@ from django.db.models import (
 class User(AbstractBaseUser):
     email = EmailField(unique=True)
     profile_image = ImageField(upload_to='user-profile/', default='default/user_img/default_user.png')
-    first_name = CharField(max_length=255)
-    last_name = CharField(max_length=255)
+    fullname = CharField(max_length=255)
     birth_date = DateField(null=True, blank=True)
     date_of_joined = DateTimeField(auto_now_add=True)
     is_active = BooleanField(default=True)
