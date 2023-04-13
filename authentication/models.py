@@ -20,6 +20,7 @@ class User(AbstractBaseUser):
     is_active = BooleanField(default=True)
     is_superuser = BooleanField(default=False)
     is_doctor = BooleanField(default=False)
+    gender = BooleanField(default=True)
 
     objects = UserManager()
 

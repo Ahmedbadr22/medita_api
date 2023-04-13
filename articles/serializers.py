@@ -11,7 +11,7 @@ class CategorySerializer(ModelSerializer):
 class CreateArticleSerializer(ModelSerializer):
     class Meta:
         model = Article
-        fields = '__all__'
+        fields = ['title', 'body', 'cover_image', 'category']
 
 
 class GetArticleSerializer(ModelSerializer):

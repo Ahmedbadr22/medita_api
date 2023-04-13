@@ -1,5 +1,5 @@
 from django.db.models import Count
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView
 from .models import Category, Article, Bookmark
 from .serializers import CategorySerializer, CreateArticleSerializer, GetArticleSerializer, BookmarkSerializer
 
@@ -19,6 +19,12 @@ class ListCategoriesAPIView(ListAPIView):
 class CreateArticleAPIView(CreateAPIView):
     queryset = Article.objects.all()
     serializer_class = CreateArticleSerializer
+
+
+class DeleteArticleAPIView(DestroyAPIView):
+    queryset = Article.objects.all()
+    serializer_class = CreateArticleSerializer
+    lookup_field = 'id'
 
 
 # Article

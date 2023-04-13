@@ -18,7 +18,6 @@ from django.conf import settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -29,7 +28,6 @@ SECRET_KEY = 'django-insecure-_1om1z@h&9l8o2#o$!!n0j_5cc(s7ss6%#oc)g&@cm858ry69s
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -44,11 +42,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    "corsheaders",
     # apps
     'authentication',
     'medita_clinic',
     'articles',
-    'analytics'
+    'analytics',
 ]
 
 REST_FRAMEWORK = {
@@ -65,6 +64,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # cors header
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+]
+
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = ['*']
+
+CORS_ALLOWED_ORIGINS = [
+    'https://ee1d-197-56-29-124.eu.ngrok.io',
+    'http://127.0.0.1:3000',
+    'http://localhost:3000'
 ]
 
 ROOT_URLCONF = 'medita_api.urls'
@@ -87,7 +98,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'medita_api.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -100,7 +110,6 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -170,7 +179,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

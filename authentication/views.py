@@ -1,5 +1,8 @@
 from rest_framework.generics import CreateAPIView
-from .serializers import UserCreationSerializer, SuperuserCreationSerializer, DoctorUserCreationSerializer
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from .serializers import (UserCreationSerializer, SuperuserCreationSerializer, DoctorUserCreationSerializer)
 from .models import User
 
 
@@ -24,7 +27,18 @@ class SuperuserCreationAPIView(CreateAPIView):
 # Doctor user creation
 class DoctorUserCreationAPIView(CreateAPIView):
     """
-    Create Superuser Api View using email, password, first_name and last_name
+    Create Doctor user Api View using email, password, first_name and last_name
     """
     queryset = User.objects.all()
     serializer_class = DoctorUserCreationSerializer
+
+
+class IsDoctorUserAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @classmethod
+    def get(cls, request):
+        user = request.user
+        if user is not None:
+            return Response({'is_doctor': user.is_doctor})
+        return Response({'detail', 'Not found'}, status=400)

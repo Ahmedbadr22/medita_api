@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
-from .models import User
+
 from medita_clinic.models import Doctor
+from .models import User
 
 
 class UserCreationSerializer(ModelSerializer):
@@ -10,7 +11,7 @@ class UserCreationSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'fullname']
+        fields = ['email', 'password', 'fullname', 'gender', 'profile_image', 'birth_date']
 
         extra_kwargs = {
             'password': {'write_only': True},
@@ -29,7 +30,7 @@ class SuperuserCreationSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['profile_image', 'email', 'password', 'fullname', 'birth_date']
+        fields = ['profile_image', 'email', 'password', 'fullname', 'birth_date', 'gender']
 
         extra_kwargs = {
             'password': {'write_only': True},
@@ -48,7 +49,7 @@ class DoctorUserCreationSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['profile_image', 'email', 'password', 'fullname', 'birth_date']
+        fields = ['profile_image', 'email', 'password', 'fullname', 'birth_date', 'gender']
 
         extra_kwargs = {
             'password': {'write_only': True},
@@ -66,3 +67,5 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ['profile_image', 'email', 'fullname', 'birth_date']
+
+

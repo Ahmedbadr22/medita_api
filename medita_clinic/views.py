@@ -1,6 +1,11 @@
+import datetime
+
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import CreateAPIView, ListAPIView
-from .models import FavoriteDoctor, Review, Doctor, Banner, Speciality, Hospital, Appointment
+from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import (FavoriteDoctor, Review, Doctor, Banner, Speciality, Hospital, Appointment, DoctorRate, Disease,
+                     DiseaseCategory)
 from .serializers import (
     BannerSerializer,
     SpecialitySerializer,
@@ -10,10 +15,14 @@ from .serializers import (
     ReviewSerializer,
     CreateDoctorSerializer,
     DoctorSerializer,
-    CreateDoctorRateSerializer,
     AppointmentSerializer,
     CreateAppointmentSerializer,
-    ListFavoriteDoctorsSerializer
+    ListFavoriteDoctorsSerializer,
+    DoctorRatesDistributionSerializer,
+    CreateDoctorRateSerializer,
+    ListTodayAuthenticatedDoctorAppointmentsSerializer,
+    DiseaseSerializer,
+    DiseaseCategorySerializer
 )
 
 
@@ -21,6 +30,12 @@ from .serializers import (
 class CreateBannerAPIView(CreateAPIView):
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
+
+
+class DeleteBannerAPIView(DestroyAPIView):
+    queryset = Banner.objects.all()
+    serializer_class = BannerSerializer
+    lookup_field = 'id'
 
 
 class ListBannersAPIView(ListAPIView):
@@ -32,6 +47,12 @@ class ListBannersAPIView(ListAPIView):
 class CreateSpecialityAPIView(CreateAPIView):
     queryset = Speciality.objects.all()
     serializer_class = SpecialitySerializer
+
+
+class DeleteSpecialityAPIView(DestroyAPIView):
+    queryset = Speciality.objects.all()
+    serializer_class = SpecialitySerializer
+    lookup_field = 'id'
 
 
 class ListSpecialityAPIView(ListAPIView):
@@ -72,6 +93,12 @@ class CreateHospitalSerializerAPIView(CreateAPIView):
     serializer_class = CreateHospitalSerializer
 
 
+class DeleteHospitalSerializerAPIView(DestroyAPIView):
+    queryset = Hospital.objects.all()
+    serializer_class = CreateHospitalSerializer
+    lookup_field = "id"
+
+
 class ListHospitalsAPIView(ListAPIView):
     queryset = Hospital.objects.all()
     serializer_class = ListHospitalSerializer
@@ -81,11 +108,6 @@ class ListHospitalsAPIView(ListAPIView):
 class CreateDoctorSerializerAPIView(CreateAPIView):
     queryset = Doctor.objects.all()
     serializer_class = CreateDoctorSerializer
-
-
-class CreateDoctorRateSerializerAPIView(CreateAPIView):
-    queryset = Doctor.objects.all()
-    serializer_class = CreateDoctorRateSerializer
 
 
 class ListDoctorsAPIView(ListAPIView):
@@ -113,7 +135,40 @@ class ListMostRatedDoctorsBySpecialityId(ListAPIView):
         return self.queryset.filter(speciality_id=speciality_id).order_by('rates__star_count')[10:]
 
 
+class GetDoctorRatesDistributionAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = DoctorRatesDistributionSerializer(instance=self.get_queryset())
+        return Response(serializer.data, status=200)
+
+    def get_queryset(self):
+        user = self.request.user
+        doctor = Doctor.objects.filter(user_id=user.id).first()
+        return DoctorRate.objects.filter(doctor_id=doctor.id).first()
+
+
 # TODO: Add List Most rated doctor in every speciality speciality
+
+# Doctor Rate
+class CreateDoctorRateAPIVIew(CreateAPIView):
+    queryset = DoctorRate.objects.all()
+    serializer_class = CreateDoctorRateSerializer
+
+
+# Doctor - Appointment
+class ListTodayAuthenticatedDoctorAppointmentsAPIView(ListAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = ListTodayAuthenticatedDoctorAppointmentsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        doctor = Doctor.objects.filter(user_id=user.id).first()
+        today_min = datetime.datetime.combine(datetime.date.today(), datetime.time.min)
+        today_max = datetime.datetime.combine(datetime.date.today(), datetime.time.max)
+        return self.queryset.filter(doctor_id=doctor.id, date__range=(today_min, today_max))
+
 
 # Appointment
 
@@ -130,3 +185,37 @@ class ListAppointmentsByUserId(ListAPIView):
     def get_queryset(self):
         user_id = self.kwargs.get(self.lookup_field)
         return self.queryset.filter(patient_id=user_id).order_by('date')
+
+
+# Disease
+class CreateDiseaseAPIView(CreateAPIView):
+    queryset = Disease.objects.all()
+    serializer_class = DiseaseSerializer
+
+
+class ListDiseasesAPIView(ListAPIView):
+    queryset = Disease.objects.all()
+    serializer_class = DiseaseSerializer
+
+
+class DeleteDiseaseAPIView(DestroyAPIView):
+    queryset = Disease.objects.all()
+    serializer_class = DiseaseSerializer
+    lookup_field = 'id'
+
+
+# Disease Category
+class CreateDiseaseCategoryAPIView(CreateAPIView):
+    queryset = DiseaseCategory.objects.all()
+    serializer_class = DiseaseCategorySerializer
+
+
+class ListDiseaseCategoriesAPIView(ListAPIView):
+    queryset = DiseaseCategory.objects.all()
+    serializer_class = DiseaseCategorySerializer
+
+
+class DeleteDiseaseCategoryAPIView(DestroyAPIView):
+    queryset = DiseaseCategory.objects.all()
+    serializer_class = DiseaseCategorySerializer
+    lookup_field = 'id'

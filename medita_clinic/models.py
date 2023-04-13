@@ -36,6 +36,10 @@ class Review(Model):
 
 
 class Rate(Model):
+    """
+    notice : remember to change this class to hospital rate
+    by add hospital id
+    """
     by = ForeignKey(User, on_delete=CASCADE)
     star_count = IntegerField(default=0)
 
@@ -60,13 +64,18 @@ class Doctor(Model):
     user = ForeignKey(User, on_delete=CASCADE)
     about = TextField(max_length=800)
     years_of_exp = IntegerField(default=0)
-    speciality = ForeignKey(Speciality, on_delete=DO_NOTHING)
-    work_on_hospital = ForeignKey(Hospital, on_delete=DO_NOTHING)
-    rates = ManyToManyField(Rate)
+    speciality = ForeignKey(Speciality, on_delete=DO_NOTHING, null=True, blank=True)
+    work_on_hospital = ForeignKey(Hospital, on_delete=DO_NOTHING, null=True, blank=True)
     reviews = ManyToManyField(Review, null=True, blank=True)
 
     def __str__(self):
         return self.user.email
+
+
+class DoctorRate(Model):
+    doctor = ForeignKey(Doctor, on_delete=CASCADE)
+    by = ForeignKey(User, on_delete=CASCADE)
+    star_count = IntegerField(default=0)
 
 
 class FavoriteDoctor(Model):
@@ -92,3 +101,16 @@ class Banner(Model):
     title = CharField(max_length=150)
     body = TextField()
     image = ImageField(upload_to='medita_clinic/banners/')
+
+
+class DiseaseCategory(Model):
+    name = CharField(max_length=100, unique=True)
+
+
+class Disease(Model):
+    name = CharField(max_length=100, unique=True)
+    image = ImageField(upload_to='analytics/disease/images/')
+    classification_label = IntegerField(default=0)
+    related_disease_category = ForeignKey(DiseaseCategory, on_delete=CASCADE)
+    detail = TextField()
+
