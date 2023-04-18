@@ -122,7 +122,8 @@ class ListDoctorsBySpecialityAPIView(ListAPIView):
 
     def get_queryset(self):
         speciality_id = self.kwargs.get(self.lookup_field)
-        return self.queryset.filter(speciality_id=speciality_id).order_by('rates__star_count')
+        # return self.queryset.filter(speciality_id=speciality_id).order_by('rates__star_count')
+        return self.queryset.filter(speciality_id=speciality_id)
 
 
 class ListMostRatedDoctorsBySpecialityId(ListAPIView):

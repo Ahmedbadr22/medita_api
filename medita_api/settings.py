@@ -103,11 +103,8 @@ WSGI_APPLICATION = 'medita_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'medita_db',
-        'USER': 'root',
-        'PASSWORD': '48259665aA@',
-        'HOST': 'localhost'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

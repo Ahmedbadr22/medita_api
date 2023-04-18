@@ -52,7 +52,6 @@ class DoctorSerializer(ModelSerializer):
     speciality = SpecialitySerializer()
     work_on_hospital = ListHospitalSerializer()
     reviews = ReviewSerializer(many=True)
-    rates = RateSerializer(many=True)
 
     class Meta:
         model = Doctor
