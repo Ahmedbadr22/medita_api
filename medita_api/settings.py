@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'authentication',
     'medita_clinic',
     'articles',
-    'analytics',
 ]
 
 REST_FRAMEWORK = {
@@ -104,7 +103,11 @@ WSGI_APPLICATION = 'medita_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'sql7613429',
+        'HOST': 'sql7.freemysqlhosting.net',
+        'USER': 'sql7613429',
+        'PASSWORD': 'Klepcc3jmI',
+        'PORT': '3306',
     }
 }
 

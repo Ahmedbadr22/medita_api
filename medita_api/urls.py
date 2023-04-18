@@ -8,7 +8,6 @@ urlpatterns = [
     path('authentication/', include('authentication.urls')),
     path('clinic/', include('medita_clinic.urls')),
     path('articles/', include('articles.urls')),
-    path('analytics/', include('analytics.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
