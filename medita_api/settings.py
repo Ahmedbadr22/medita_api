@@ -102,13 +102,13 @@ WSGI_APPLICATION = 'medita_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'URL': 'mysql://root:0gTZtcTswFO7QCdW4khp@containers-us-west-88.railway.app:7346/railway',
+        'ENGINE': 'django.db.backends.postgresql',
+        'URL': 'postgresql://postgres:queR3sYbYTl5wHuzL1mF@containers-us-west-182.railway.app:6286/railway',
         'NAME': 'railway',
-        'USER': 'root',
-        'PASSWORD': '0gTZtcTswFO7QCdW4khp',
-        'HOST': 'containers-us-west-88.railway.app',
-        'PORT': '7346',
+        'USER': 'postgres',
+        'PASSWORD': 'queR3sYbYTl5wHuzL1mF',
+        'HOST': 'containers-us-west-182.railway.app',
+        'PORT': '6286',
     }
 }
 
