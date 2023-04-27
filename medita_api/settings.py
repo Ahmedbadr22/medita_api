@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_1om1z@h&9l8o2#o$!!n0j_5cc(s7ss6%#oc)g&@cm858ry69s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -102,14 +102,22 @@ WSGI_APPLICATION = 'medita_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'sql7613429',
-        'HOST': 'sql7.freemysqlhosting.net',
-        'USER': 'sql7613429',
-        'PASSWORD': 'Klepcc3jmI',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.mysql',
+        'URL': 'mysql://root:0gTZtcTswFO7QCdW4khp@containers-us-west-88.railway.app:7346/railway',
+        'NAME': 'railway',
+        'USER': 'root',
+        'PASSWORD': '0gTZtcTswFO7QCdW4khp',
+        'HOST': 'containers-us-west-88.railway.app',
+        'PORT': '7346',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'https://drive.google.com/file/d/1Po4QOKUE6771zxRTBy4fB4t17LLjrF9t/view?usp=sharing',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -189,6 +197,14 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dsvnvmltp',
+    'API_KEY': '779497714578693',
+    'API_SECRET': 'vTXfzj4SU87G8vB3Vao8jLBbhBc'
+}
 
 AUTH_USER_MODEL = 'authentication.User'
 

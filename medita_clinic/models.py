@@ -66,7 +66,7 @@ class Doctor(Model):
     years_of_exp = IntegerField(default=0)
     speciality = ForeignKey(Speciality, on_delete=DO_NOTHING, null=True, blank=True)
     work_on_hospital = ForeignKey(Hospital, on_delete=DO_NOTHING, null=True, blank=True)
-    reviews = ManyToManyField(Review, null=True, blank=True)
+    reviews = ManyToManyField(Review)
 
     def __str__(self):
         return self.user.email
