@@ -109,9 +109,11 @@ DATABASES = {
         'PASSWORD': 'm8iSt4WjZsk8DCP',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {
+            'autocommit': True,
+        }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -191,7 +193,6 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 AUTH_USER_MODEL = 'authentication.User'
 
