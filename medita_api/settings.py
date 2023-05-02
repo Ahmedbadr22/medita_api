@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_1om1z@h&9l8o2#o$!!n0j_5cc(s7ss6%#oc)g&@cm858ry69s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://api.meditahealthcare.me']
+ALLOWED_HOSTS = ['api.meditahealthcare.me']
 
 # Application definition
 
