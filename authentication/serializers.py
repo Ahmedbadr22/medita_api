@@ -69,3 +69,5 @@ class UserSerializer(ModelSerializer):
         fields = ['profile_image', 'email', 'fullname', 'birth_date']
 
 
+
+
