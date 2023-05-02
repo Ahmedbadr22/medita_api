@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_1om1z@h&9l8o2#o$!!n0j_5cc(s7ss6%#oc)g&@cm858ry69s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['api.meditahealthcare.me']
+ALLOWED_HOSTS = ['api.meditahealthcare.me', 'localhost', '127.0.0.1', '198.187.29.143']
 
 # Application definition
 
@@ -103,15 +103,12 @@ WSGI_APPLICATION = 'medita_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'medifklh_medita_db',
         'USER': 'medifklh_root',
         'PASSWORD': 'm8iSt4WjZsk8DCP',
         'HOST': 'localhost',
         'PORT': '3306',
-        'OPTIONS': {
-            'autocommit': True,
-        }
     }
 }
 
