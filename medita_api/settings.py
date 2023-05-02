@@ -103,11 +103,11 @@ WSGI_APPLICATION = 'medita_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'medifklh_medita_db',
         'USER': 'medifklh_root',
         'PASSWORD': 'm8iSt4WjZsk8DCP',
-        'HOST': 'https://meditahealthcare.me',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
