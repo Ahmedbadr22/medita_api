@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_1om1z@h&9l8o2#o$!!n0j_5cc(s7ss6%#oc)g&@cm858ry69s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['https://api.meditahealthcare.me']
 
 # Application definition
 
@@ -72,9 +72,10 @@ MIDDLEWARE = [
 CORS_ALLOW_HEADERS = ['*']
 
 CORS_ALLOWED_ORIGINS = [
-    'https://ee1d-197-56-29-124.eu.ngrok.io',
     'http://127.0.0.1:3000',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://meditahealthcare.me',
+    'https://api.meditahealthcare.me',
 ]
 
 ROOT_URLCONF = 'medita_api.urls'
@@ -102,22 +103,15 @@ WSGI_APPLICATION = 'medita_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgresql://postgres:queR3sYbYTl5wHuzL1mF@containers-us-west-182.railway.app:6286/railway',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'queR3sYbYTl5wHuzL1mF',
-        'HOST': 'containers-us-west-182.railway.app',
-        'PORT': '6286',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'medifklh_medita_db',
+        'USER': 'medifklh_root',
+        'PASSWORD': 'm8iSt4WjZsk8DCP',
+        'HOST': 'https://meditahealthcare.me',
+        'PORT': '3306',
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'https://drive.google.com/file/d/1Po4QOKUE6771zxRTBy4fB4t17LLjrF9t/view?usp=sharing',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -198,13 +192,6 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dsvnvmltp',
-    'API_KEY': '779497714578693',
-    'API_SECRET': 'vTXfzj4SU87G8vB3Vao8jLBbhBc'
-}
 
 AUTH_USER_MODEL = 'authentication.User'
 
