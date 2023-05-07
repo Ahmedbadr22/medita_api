@@ -163,6 +163,12 @@ class DiseaseCategorySerializer(ModelSerializer):
 
 
 # Patient Diagnosis
+class CreatePatientDiagnosisSerializer(ModelSerializer):
+    class Meta:
+        model = PatientDiagnosis
+        fields = '__all__'
+
+
 class CreatePatientPredictionDiagnosisSerializer(ModelSerializer):
     class Meta:
         model = PatientDiagnosis

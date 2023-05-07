@@ -26,7 +26,8 @@ from .serializers import (
     DiseaseCategorySerializer,
     UpdateDoctorSerializer,
     PatientDiagnosisSerializer,
-    CreatePatientPredictionDiagnosisSerializer
+    CreatePatientPredictionDiagnosisSerializer,
+    CreatePatientDiagnosisSerializer
 )
 
 
