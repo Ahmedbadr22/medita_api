@@ -111,6 +111,12 @@ class CreateDoctorSerializerAPIView(CreateAPIView):
     serializer_class = CreateDoctorSerializer
 
 
+class DeleteDoctorAPIView(DestroyAPIView):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorSerializer
+    lookup_field = 'id'
+
+
 class ListDoctorsAPIView(ListAPIView):
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer

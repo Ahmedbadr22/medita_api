@@ -22,6 +22,7 @@ urlpatterns = [
     path('list-hospitals', ListHospitalsAPIView.as_view()),
     # Doctor
     path('add-doctor', CreateDoctorSerializerAPIView.as_view()),
+    path('delete-doctor/<int:id>', DeleteDoctorAPIView.as_view()),
     path('update-doctor-detail', UpdateDoctorDetailAPIView.as_view()),
     path('list-doctors', ListDoctorsAPIView.as_view()),
     path('list-doctors-by-speciality/<int:id>', ListDoctorsBySpecialityAPIView.as_view()),
