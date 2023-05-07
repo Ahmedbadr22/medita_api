@@ -156,13 +156,13 @@ class UpdateDoctorDetailAPIView(UpdateAPIView):
     queryset = Doctor.objects.all()
     serializer_class = UpdateDoctorSerializer
 
-    def get_queryset(self):
+    def get_object(self):
         user = self.request.user
-        return Doctor.objects.filter(user_id=user.id).first()
+        return self.queryset.filter(user_id=user.id).first()
 
     def update(self, request, *args, **kwargs):
-        instance = self.get_queryset()
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
 
         if serializer.isValid():
             serializer.save()
