@@ -172,7 +172,12 @@ class CreatePatientDiagnosisSerializer(ModelSerializer):
 class CreatePatientPredictionDiagnosisSerializer(ModelSerializer):
     class Meta:
         model = PatientDiagnosis
-        fields = ['disease_image']
+        fields = ['id', 'disease_image', 'patient', 'predicted_diagnosis', 'predicted_diagnosis_accuracy', 'date_time']
+
+        extra_kwargs = {
+            'predicted_diagnosis': {'read_only': True},
+            'predicted_diagnosis_accuracy': {'read_only': True},
+        }
 
 
 class PatientDiagnosisSerializer(ModelSerializer):

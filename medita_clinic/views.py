@@ -1,4 +1,5 @@
 import datetime
+from gradio_client import Client
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView, UpdateAPIView
@@ -277,13 +278,35 @@ class ListPatientDiagnosisByDoctorIdAPIView(ListAPIView):
         return self.queryset.filter(doctor_id=user_id)
 
 
-# class PredictPatientDiagnosisAPIView(CreateAPIView):
-#     queryset = PatientDiagnosis.objects.all()
-#     serializer_class = CreatePatientPredictionDiagnosisSerializer
-#     permission_classes = [IsAuthenticated]
-#
-#     def post(self, request, *args, **kwargs):
-#         # serializer = self.get_serializer(data=request.data, context={'request', request})
-#         # if serializer.is_valid():
-#         #     return Response(serializer.data, status=201)
-#         return Response({'error': "What"}, status=400)
+client = Client("https://ahmedbadrdev-stomach.hf.space/")
+
+
+class PredictPatientDiagnosisAPIView(CreateAPIView):
+    queryset = PatientDiagnosis.objects.all()
+    serializer_class = CreatePatientPredictionDiagnosisSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            instance_id = serializer.data["id"]
+            image_path = serializer.data["disease_image"]
+            result = client.predict(image_path, api_name="/predict")
+            label = result[0]
+            accuracy = result[1]
+            disease = Disease.objects.filter(name=label)
+            if disease.exists():
+                patent_diagnosis = PatientDiagnosis.objects.filter(instance_id)
+                if patent_diagnosis.exists():
+                    instance = patent_diagnosis.first()
+                    instance.predicted_diagnosis_id = disease.first().id
+                    instance.predicted_diagnosis_accuracy = accuracy
+                    instance.save()
+                    serializer = self.get_serializer(instance)
+                    return Response(serializer.data, status=201)
+                else:
+                    return Response({'detail': 'patient diagnoses not found'}, status=400)
+            else:
+                return Response({'detail': 'disease not found'}, status=400)
+        return Response(serializer.errors, status=400)

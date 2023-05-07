@@ -123,6 +123,6 @@ class PatientDiagnosis(Model):
     doctor_diagnosis_disease = ForeignKey(Disease, related_name='doctor_diagnosis_dis', on_delete=CASCADE, null=True,
                                           blank=True)
     disease_image = ImageField(upload_to='predicted_image/', null=True, blank=True)
-    predicted_diagnosis = ForeignKey(Disease, on_delete=CASCADE)
-    predicted_diagnosis_accuracy = FloatField(default=0.0)
+    predicted_diagnosis = ForeignKey(Disease, on_delete=CASCADE, null=True, blank=True)
+    predicted_diagnosis_accuracy = FloatField(default=0.0, null=True, blank=True)
     date_time = DateTimeField(auto_now_add=True)
