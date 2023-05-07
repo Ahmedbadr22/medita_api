@@ -280,12 +280,8 @@ class ListPatientDiagnosisByDoctorIdAPIView(ListAPIView):
 class PredictPatientDiagnosisAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    @classmethod
-    def post(cls, request):
+    def post(self, request):
         serializer = CreatePatientDiagnosisSerializer(data=request.data, context={'request', request})
         if serializer.is_valid():
             return Response({'is_valid': True}, status=201)
-        return Response(serializer.errors, status=100)
-        # client = Client("https://ahmedbadrdev-stomach.hf.space/")
-        # result = client.predict("https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png", api_name="/predict")
-        # print(result)
+        return Response(serializer.errors, status=400)
