@@ -26,7 +26,7 @@ from .serializers import (
     DiseaseCategorySerializer,
     UpdateDoctorSerializer,
     PatientDiagnosisSerializer,
-    CreatePatientDiagnosisSerializer
+    CreatePatientPredictionDiagnosisSerializer
 )
 
 
@@ -279,7 +279,7 @@ class ListPatientDiagnosisByDoctorIdAPIView(ListAPIView):
 
 class PredictPatientDiagnosisAPIView(CreateAPIView):
     queryset = PatientDiagnosis.objects.all()
-    serializer_class = CreatePatientDiagnosisSerializer
+    serializer_class = CreatePatientPredictionDiagnosisSerializer
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
