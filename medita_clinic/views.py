@@ -1,5 +1,4 @@
 import datetime
-from gradio_client import Client
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView, UpdateAPIView
@@ -284,7 +283,7 @@ class PredictPatientDiagnosisAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, context={'request', request})
-        if serializer.is_valid():
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+        # serializer = self.get_serializer(data=request.data, context={'request', request})
+        # if serializer.is_valid():
+        #     return Response(serializer.data, status=201)
+        return Response({'error': "What"}, status=400)
