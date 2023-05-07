@@ -49,7 +49,7 @@ class DoctorUserCreationSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['profile_image', 'email', 'password', 'fullname', 'birth_date', 'gender']
+        fields = ['id', 'profile_image', 'email', 'password', 'fullname', 'birth_date', 'gender']
 
         extra_kwargs = {
             'password': {'write_only': True},
