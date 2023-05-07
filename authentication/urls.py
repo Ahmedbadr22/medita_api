@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserCreationAPIView, SuperuserCreationAPIView, DoctorUserCreationAPIView, IsDoctorUserAPIView
+from .views import UserCreationAPIView, SuperuserCreationAPIView, DoctorUserCreationAPIView, IsDoctorUserAPIView, IsFillAllDoctorDataAPIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenBlacklistView, TokenVerifyView
 
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('token/varify', TokenVerifyView.as_view(), name='token_varify'),
     path('token/block', TokenBlacklistView.as_view(), name='token_block'),
     path('is-doctor-user', IsDoctorUserAPIView.as_view()),
+    path('is-fill-all-doctor-data', IsFillAllDoctorDataAPIView.as_view()),
 ]

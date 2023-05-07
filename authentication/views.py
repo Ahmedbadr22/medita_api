@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import (UserCreationSerializer, SuperuserCreationSerializer, DoctorUserCreationSerializer)
 from .models import User
+from medita_clinic.models import Doctor
 
 
 # Normal user creation
@@ -42,3 +43,13 @@ class IsDoctorUserAPIView(APIView):
         if user is not None:
             return Response({'is_doctor': user.is_doctor})
         return Response({'detail', 'Not found'}, status=400)
+
+
+class IsFillAllDoctorDataAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @classmethod
+    def get(cls, request):
+        user = request.user
+        is_found = Doctor.objects.filter(user_id=user.id).exists()
+        return Response({'is_found': is_found})
