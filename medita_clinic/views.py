@@ -277,13 +277,13 @@ class ListPatientDiagnosisByDoctorIdAPIView(ListAPIView):
         return self.queryset.filter(doctor_id=user_id)
 
 
-class PredictPatientDiagnosisAPIView(CreateAPIView):
-    queryset = PatientDiagnosis.objects.all()
-    serializer_class = CreatePatientPredictionDiagnosisSerializer
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, *args, **kwargs):
-        # serializer = self.get_serializer(data=request.data, context={'request', request})
-        # if serializer.is_valid():
-        #     return Response(serializer.data, status=201)
-        return Response({'error': "What"}, status=400)
+# class PredictPatientDiagnosisAPIView(CreateAPIView):
+#     queryset = PatientDiagnosis.objects.all()
+#     serializer_class = CreatePatientPredictionDiagnosisSerializer
+#     permission_classes = [IsAuthenticated]
+#
+#     def post(self, request, *args, **kwargs):
+#         # serializer = self.get_serializer(data=request.data, context={'request', request})
+#         # if serializer.is_valid():
+#         #     return Response(serializer.data, status=201)
+#         return Response({'error': "What"}, status=400)
