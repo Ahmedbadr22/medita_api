@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from .models import (Speciality, Hospital, Doctor, Banner, FavoriteDoctor, Review, Rate, Appointment, DoctorRate,
-                     Disease, DiseaseCategory)
+                     Disease, DiseaseCategory, PatientDiagnosis)
 from authentication.serializers import UserSerializer
 
 
@@ -159,4 +159,22 @@ class DiseaseSerializer(ModelSerializer):
 class DiseaseCategorySerializer(ModelSerializer):
     class Meta:
         model = DiseaseCategory
+        fields = '__all__'
+
+
+# Patient Diagnosis
+class CreatePatientDiagnosisSerializer(ModelSerializer):
+    class Meta:
+        model = PatientDiagnosis
+        fields = '__all__'
+
+
+class PatientDiagnosisSerializer(ModelSerializer):
+    patient = UserSerializer()
+    doctor = DoctorSerializer()
+    doctor_diagnosis_disease = DiseaseSerializer()
+    predicted_diagnosis = DiseaseSerializer()
+
+    class Meta:
+        model = PatientDiagnosis
         fields = '__all__'

@@ -1,11 +1,12 @@
 import datetime
+from gradio_client import Client
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import (FavoriteDoctor, Review, Doctor, Banner, Speciality, Hospital, Appointment, DoctorRate, Disease,
-                     DiseaseCategory)
+                     DiseaseCategory, PatientDiagnosis)
 from .serializers import (
     BannerSerializer,
     SpecialitySerializer,
@@ -23,7 +24,9 @@ from .serializers import (
     ListTodayAuthenticatedDoctorAppointmentsSerializer,
     DiseaseSerializer,
     DiseaseCategorySerializer,
-    UpdateDoctorSerializer
+    UpdateDoctorSerializer,
+    PatientDiagnosisSerializer,
+    CreatePatientDiagnosisSerializer
 )
 
 
@@ -245,3 +248,44 @@ class DeleteDiseaseCategoryAPIView(DestroyAPIView):
     queryset = DiseaseCategory.objects.all()
     serializer_class = DiseaseCategorySerializer
     lookup_field = 'id'
+
+
+# Patient Diagnosis
+
+class CreatePatientDiagnosisAPIView(CreateAPIView):
+    queryset = PatientDiagnosis.objects.all()
+    serializer_class = CreatePatientDiagnosisSerializer
+
+
+class ListPatientDiagnosisByPatientIdAPIView(ListAPIView):
+    queryset = PatientDiagnosis.objects.all()
+    serializer_class = PatientDiagnosisSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        user_id = self.kwargs.get(self.lookup_field)
+        return self.queryset.filter(patient_id=user_id)
+
+
+class ListPatientDiagnosisByDoctorIdAPIView(ListAPIView):
+    queryset = PatientDiagnosis.objects.all()
+    serializer_class = PatientDiagnosisSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        user_id = self.kwargs.get(self.lookup_field)
+        return self.queryset.filter(doctor_id=user_id)
+
+
+class PredictPatientDiagnosisAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @classmethod
+    def post(cls, request):
+        serializer = CreatePatientDiagnosisSerializer(data=request.data, context={'request', request})
+        if serializer.is_valid():
+            return Response({'is_valid': True}, status=201)
+        return Response(serializer.errors, status=100)
+        # client = Client("https://ahmedbadrdev-stomach.hf.space/")
+        # result = client.predict("https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png", api_name="/predict")
+        # print(result)

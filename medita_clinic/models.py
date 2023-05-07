@@ -92,6 +92,7 @@ class Appointment(Model):
     is_canceled = BooleanField(default=False)
     problem_detail = TextField(max_length=1500)
     appointment_report = TextField()
+    meeting_link = TextField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.patient.fullname} has appointment with Doctor: {self.doctor.user.fullname} at {self.date}"
@@ -114,3 +115,13 @@ class Disease(Model):
     related_disease_category = ForeignKey(DiseaseCategory, on_delete=CASCADE)
     detail = TextField()
 
+
+class PatientDiagnosis(Model):
+    patient = ForeignKey("authentication.User", on_delete=CASCADE)
+    doctor = ForeignKey(Doctor, on_delete=CASCADE, null=True, blank=True)
+    doctor_diagnosis = TextField(null=True, blank=True)
+    doctor_diagnosis_disease = ForeignKey(Disease, on_delete=CASCADE, null=True, blank=True)
+    disease_image = ImageField(upload_to='predicted_image/', null=True, blank=True)
+    predicted_diagnosis = ForeignKey(Disease, on_delete=CASCADE)
+    predicted_diagnosis_accuracy = FloatField(default=0.0)
+    date_time = DateTimeField(auto_now_add=True)
