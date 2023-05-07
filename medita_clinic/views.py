@@ -283,8 +283,7 @@ class PredictPatientDiagnosisAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        return Response({"case": "Its Working"}, status=400)
-        # serializer = CreatePatientDiagnosisSerializer(data=request.data, context={'request', request})
-        # if serializer.is_valid():
-        #     return Response({'is_valid': True}, status=201)
-        # return Response(serializer.errors, status=400)
+        serializer = self.get_serializer(data=request.data, context={'request', request})
+        if serializer.is_valid():
+            return Response({'is_valid': True}, status=201)
+        return Response(serializer.errors, status=400)
