@@ -1,7 +1,7 @@
 import datetime
 
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import (FavoriteDoctor, Review, Doctor, Banner, Speciality, Hospital, Appointment, DoctorRate, Disease,
@@ -22,7 +22,8 @@ from .serializers import (
     CreateDoctorRateSerializer,
     ListTodayAuthenticatedDoctorAppointmentsSerializer,
     DiseaseSerializer,
-    DiseaseCategorySerializer
+    DiseaseCategorySerializer,
+    UpdateDoctorSerializer
 )
 
 
@@ -150,6 +151,24 @@ class GetDoctorRatesDistributionAPIView(APIView):
 
 
 # TODO: Add List Most rated doctor in every speciality speciality
+
+class UpdateDoctorDetailAPIView(UpdateAPIView):
+    queryset = Doctor.objects.all()
+    serializer_class = UpdateDoctorSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Doctor.objects.filter(user_id=user.id).first()
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_queryset()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+
+        if serializer.isValid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
+
 
 # Doctor Rate
 class CreateDoctorRateAPIVIew(CreateAPIView):

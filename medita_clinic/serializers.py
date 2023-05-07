@@ -47,6 +47,12 @@ class CreateDoctorSerializer(ModelSerializer):
         fields = ['user', 'about', 'years_of_exp', 'speciality', 'work_on_hospital']
 
 
+class UpdateDoctorSerializer(ModelSerializer):
+    class Meta:
+        model = Doctor
+        fields = ['about', 'years_of_exp', 'speciality', 'work_on_hospital']
+
+
 class DoctorSerializer(ModelSerializer):
     user = UserSerializer()
     speciality = SpecialitySerializer()
