@@ -1,12 +1,12 @@
 import datetime
-from gradio_client import Client
 
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView, UpdateAPIView
-from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .models import (FavoriteDoctor, Review, Doctor, Banner, Speciality, Hospital, Appointment, DoctorRate, Disease,
-                     DiseaseCategory, PatientDiagnosis)
+                     DiseaseCategory)
 from .serializers import (
     BannerSerializer,
     SpecialitySerializer,
@@ -25,9 +25,6 @@ from .serializers import (
     DiseaseSerializer,
     DiseaseCategorySerializer,
     UpdateDoctorSerializer,
-    PatientDiagnosisSerializer,
-    CreatePatientPredictionDiagnosisSerializer,
-    CreatePatientDiagnosisSerializer
 )
 
 
@@ -249,64 +246,3 @@ class DeleteDiseaseCategoryAPIView(DestroyAPIView):
     queryset = DiseaseCategory.objects.all()
     serializer_class = DiseaseCategorySerializer
     lookup_field = 'id'
-
-
-# Patient Diagnosis
-
-class CreatePatientDiagnosisAPIView(CreateAPIView):
-    queryset = PatientDiagnosis.objects.all()
-    serializer_class = CreatePatientDiagnosisSerializer
-
-
-class ListPatientDiagnosisByPatientIdAPIView(ListAPIView):
-    queryset = PatientDiagnosis.objects.all()
-    serializer_class = PatientDiagnosisSerializer
-    lookup_field = 'id'
-
-    def get_queryset(self):
-        user_id = self.kwargs.get(self.lookup_field)
-        return self.queryset.filter(patient_id=user_id)
-
-
-class ListPatientDiagnosisByDoctorIdAPIView(ListAPIView):
-    queryset = PatientDiagnosis.objects.all()
-    serializer_class = PatientDiagnosisSerializer
-    lookup_field = 'id'
-
-    def get_queryset(self):
-        user_id = self.kwargs.get(self.lookup_field)
-        return self.queryset.filter(doctor_id=user_id)
-
-
-client = Client("https://ahmedbadrdev-stomach.hf.space/")
-
-
-class PredictPatientDiagnosisAPIView(CreateAPIView):
-    queryset = PatientDiagnosis.objects.all()
-    serializer_class = CreatePatientPredictionDiagnosisSerializer
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            instance_id = serializer.data["id"]
-            image_path = serializer.data["disease_image"]
-            result = client.predict(image_path, api_name="/predict")
-            label = result[0]
-            accuracy = result[1]
-            disease = Disease.objects.filter(name=label)
-            if disease.exists():
-                patent_diagnosis = PatientDiagnosis.objects.filter(instance_id)
-                if patent_diagnosis.exists():
-                    instance = patent_diagnosis.first()
-                    instance.predicted_diagnosis_id = disease.first().id
-                    instance.predicted_diagnosis_accuracy = accuracy
-                    instance.save()
-                    serializer = self.get_serializer(instance)
-                    return Response(serializer.data, status=201)
-                else:
-                    return Response({'detail': 'patient diagnoses not found'}, status=400)
-            else:
-                return Response({'detail': 'disease not found'}, status=400)
-        return Response(serializer.errors, status=400)

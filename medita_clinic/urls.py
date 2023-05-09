@@ -41,9 +41,6 @@ urlpatterns = [
     path('add-disease-category', CreateDiseaseCategoryAPIView.as_view()),
     path('delete-disease-category/<int:id>', DeleteDiseaseCategoryAPIView.as_view()),
     path('list-disease-categories', ListDiseaseCategoriesAPIView.as_view()),
-    # Patient Diagnosis
-    path('add-patient-diagnosis', CreatePatientDiagnosisAPIView.as_view()),
-    path('list-patient-diagnosis-by-patient/<int:id>', ListPatientDiagnosisByPatientIdAPIView.as_view()),
-    path('list-patient-diagnosis-by-doctor/<int:id>', ListPatientDiagnosisByDoctorIdAPIView.as_view()),
-    path('predict-patient-disease', PredictPatientDiagnosisAPIView.as_view()),
+    path('predict', Predict.as_view()),
+
 ]
