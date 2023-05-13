@@ -41,6 +41,5 @@ urlpatterns = [
     path('add-disease-category', CreateDiseaseCategoryAPIView.as_view()),
     path('delete-disease-category/<int:id>', DeleteDiseaseCategoryAPIView.as_view()),
     path('list-disease-categories', ListDiseaseCategoriesAPIView.as_view()),
-    path('predict', Predict.as_view()),
 
 ]

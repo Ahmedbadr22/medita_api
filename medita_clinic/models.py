@@ -7,8 +7,6 @@ from django.db.models import (
     ForeignKey,
     ManyToManyField,
     DateTimeField,
-    TimeField,
-    DateField,
     CASCADE,
     DO_NOTHING,
     BooleanField,
@@ -87,8 +85,7 @@ class Appointment(Model):
     doctor = ForeignKey(Doctor, on_delete=CASCADE)
     patient = ForeignKey(User, on_delete=CASCADE)
     booking_request_date = DateTimeField(auto_now_add=True)
-    date = DateField()
-    time = TimeField()
+    date_time = CharField(max_length=255)
     is_canceled = BooleanField(default=False)
     problem_detail = TextField(max_length=1500)
     appointment_report = TextField()

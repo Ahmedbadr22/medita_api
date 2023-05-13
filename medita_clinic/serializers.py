@@ -125,13 +125,13 @@ class AppointmentSerializer(ModelSerializer):
 
     class Meta:
         model = Appointment
-        fields = ['doctor', 'date', 'time', 'problem_detail', 'is_canceled', 'booking_request_date']
+        fields = ['doctor', 'date_time', 'time', 'problem_detail', 'is_canceled', 'booking_request_date']
 
 
 class CreateAppointmentSerializer(ModelSerializer):
     class Meta:
         model = Appointment
-        fields = ['doctor', 'patient', 'date', 'time', 'problem_detail']
+        fields = ['doctor', 'patient', 'date_time', 'time', 'problem_detail']
 
 
 # Favorite Doctor
