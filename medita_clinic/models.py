@@ -85,7 +85,7 @@ class Appointment(Model):
     doctor = ForeignKey(Doctor, on_delete=CASCADE)
     patient = ForeignKey(User, on_delete=CASCADE)
     booking_request_date = DateTimeField(auto_now_add=True)
-    date_time = CharField(max_length=255)
+    date_time = DateTimeField()
     is_canceled = BooleanField(default=False)
     problem_detail = TextField(max_length=1500)
     appointment_report = TextField()
