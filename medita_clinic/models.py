@@ -92,7 +92,7 @@ class Appointment(Model):
     meeting_link = TextField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.patient.fullname} has appointment with Doctor: {self.doctor.user.fullname} at {self.date}"
+        return f"{self.patient.fullname} has appointment with Doctor: {self.doctor.user.fullname} at {self.date_time}"
 
 
 class Banner(Model):
