@@ -191,10 +191,7 @@ class ListTodayAuthenticatedDoctorAppointmentsAPIView(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        doctor = Doctor.objects.filter(user_id=user.id).first()
-        today_min = datetime.datetime.combine(datetime.date.today(), datetime.time.min)
-        today_max = datetime.datetime.combine(datetime.date.today(), datetime.time.max)
-        return self.queryset.filter(doctor_id=doctor.id)
+        return self.queryset.filter(doctor__user_id=user.id)
 
 
 # Appointment
